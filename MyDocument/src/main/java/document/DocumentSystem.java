@@ -9,22 +9,42 @@ public class DocumentSystem {
 
     // DO NOT MODIFY
     private static final String FOLDER_NAME = "output";
-//    private static final Stack<MemetoDocument>
+    private static final Stack<Memento> mementoUndo = new Stack<>();
+    private static final Stack<Memento> mementoRedo = new Stack<>();
+
 
     public static Document createDocument(){
-        return null;
+        return new Document(0.0, null);
+    }
+
+    private static void saveState(Stack<Memento> mementoStack, Document document) {
+        mementoStack.push(document.createMemento());
+    }
+
+    private static void restoreState(Stack<Memento> mementoStack, Document document) {
+        Memento lastMemento = mementoStack.pop();
+        document.setMemento(lastMemento);
     }
 
     public static void append(Document document, String text) {
+        saveState(mementoUndo, document);
+        mementoRedo.clear();
+        document.append(text);
 
     }
 
     public static void undo(Document document) {
-
+        if (!mementoUndo.isEmpty()) {
+            saveState(mementoRedo, document);
+            restoreState(mementoUndo, document);
+        }
     }
 
     public static void redo(Document document) {
-
+        if (!mementoRedo.isEmpty()) {
+            saveState(mementoUndo, document);
+            restoreState(mementoRedo, document);
+        }
     }
 
     public static void main(String[] args) {

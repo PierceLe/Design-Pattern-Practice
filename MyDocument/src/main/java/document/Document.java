@@ -18,4 +18,12 @@ public class Document {
     public void append(String text){
         this.text += text + "\n";
     }
+
+    public Memento createMemento() {
+        return new Memento(text);
+    }
+
+    public void setMemento(Memento memento) {
+        this.text = memento.getContent();
+    }
 }
