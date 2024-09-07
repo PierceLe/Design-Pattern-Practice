@@ -3,11 +3,13 @@ package document;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.*;
 
 public class DocumentSystem {
 
     // DO NOT MODIFY
     private static final String FOLDER_NAME = "output";
+//    private static final Stack<MemetoDocument>
 
     public static Document createDocument(){
         return null;
